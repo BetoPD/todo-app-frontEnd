@@ -22,8 +22,14 @@ const userSlice = createSlice({
   initialState: {
     username: '',
     email: '',
+    authorazied: false,
     hasErrors: false,
     isLoading: false,
+  },
+  reducers: {
+    toggleAuthorized: (state) => {
+      state.authorazied = !state.authorazied;
+    },
   },
   extraReducers: {
     [loginUser.pending]: (state) => {
@@ -56,5 +62,7 @@ const userSlice = createSlice({
     },
   },
 });
+
+export const { toggleAuthorized } = userSlice.actions;
 
 export default userSlice.reducer;

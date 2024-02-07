@@ -18,6 +18,9 @@ export const login = async (email, password) => {
     const body = JSON.stringify({ email, password });
     const response = await fetch(apiEndpoint + '/login', {
       method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
       body: body,
     });
     return await response.json();
