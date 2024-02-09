@@ -1,31 +1,40 @@
 const apiEndpoint = 'http://localhost:8000/api';
 
 export const register = async (email, username, password) => {
-  try {
-    const body = JSON.stringify({ email, username, password });
-    const response = await fetch(apiEndpoint + '/register', {
-      method: 'POST',
-      body: body,
-    });
+  const body = JSON.stringify({ email, username, password });
+  const response = await fetch(apiEndpoint + '/register', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: body,
+  });
+
+  if (response.ok) {
     return await response.json();
-  } catch (error) {
-    console.log(error);
+  } else {
+    const error = await response.json();
+    const errorMessage = error.message;
+    throw new Error(errorMessage);
   }
 };
 
 export const login = async (email, password) => {
-  try {
-    const body = JSON.stringify({ email, password });
-    const response = await fetch(apiEndpoint + '/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: body,
-    });
+  const body = JSON.stringify({ email, password });
+  const response = await fetch(apiEndpoint + '/login', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: body,
+  });
+
+  if (response.ok) {
     return await response.json();
-  } catch (error) {
-    console.log(error);
+  } else {
+    const error = await response.json();
+    const errorMessage = error.message;
+    throw new Error(errorMessage);
   }
 };
 

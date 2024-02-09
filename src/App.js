@@ -14,8 +14,8 @@ export default function App() {
           <Route index element={<Login />} />
           <Route path="register" element={<Register />} />
         </Route>
-        <Route path="/homepage" element={<ProtectedPages />}>
-          <Route path="/homepage" element={<Navbar />}>
+        <Route element={<ProtectedPages />}>
+          <Route path="/home" element={<Navbar />}>
             <Route index element={<Tasks />} />
           </Route>
         </Route>

@@ -25,10 +25,14 @@ const userSlice = createSlice({
     authorazied: false,
     hasErrors: false,
     isLoading: false,
+    errorMessage: '',
   },
   reducers: {
     toggleAuthorized: (state) => {
       state.authorazied = !state.authorazied;
+    },
+    clearErrorMessage: (state) => {
+      state.errorMessage = '';
     },
   },
   extraReducers: {
@@ -41,10 +45,12 @@ const userSlice = createSlice({
       state.hasErrors = false;
       state.username = action.payload.username;
       state.email = action.payload.email;
+      state.errorMessage = '';
     },
-    [loginUser.rejected]: (state) => {
+    [loginUser.rejected]: (state, action) => {
       state.isLoading = false;
       state.hasErrors = true;
+      state.errorMessage = action.error.message;
     },
     [registerUser.pending]: (state) => {
       state.isLoading = true;
@@ -55,14 +61,16 @@ const userSlice = createSlice({
       state.hasErrors = false;
       state.username = action.payload.username;
       state.email = action.payload.email;
+      state.errorMessage = '';
     },
-    [registerUser.rejected]: (state) => {
+    [registerUser.rejected]: (state, action) => {
       state.isLoading = false;
       state.hasErrors = true;
+      state.errorMessage = action.error.message;
     },
   },
 });
 
-export const { toggleAuthorized } = userSlice.actions;
+export const { toggleAuthorized, clearErrorMessage } = userSlice.actions;
 
 export default userSlice.reducer;
