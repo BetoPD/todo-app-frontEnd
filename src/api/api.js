@@ -8,6 +8,7 @@ export const register = async (email, username, password) => {
       'Content-Type': 'application/json',
     },
     body: body,
+    credentials: 'include',
   });
 
   if (response.ok) {
@@ -27,6 +28,7 @@ export const login = async (email, password) => {
       'Content-Type': 'application/json',
     },
     body: body,
+    credentials: 'include',
   });
 
   if (response.ok) {
@@ -37,6 +39,21 @@ export const login = async (email, password) => {
     throw new Error(errorMessage);
   }
 };
+
+export const verifyToken = async () => {
+  const response = await fetch(apiEndpoint + '/verify', {
+    method: 'GET',
+    credentials: 'include',
+  });
+
+  if (response.ok) {
+    return await response.json();
+  } else {
+    const error = await response.json();
+    const errorMessage = error.message;
+    throw new Error(errorMessage);
+  }
+}
 
 export const fetchTasks = async () => {
   try {
@@ -62,6 +79,7 @@ export const createTask = async (title, text, dueDate, postDate) => {
     const response = await fetch(apiEndpoint + '/task', {
       method: 'POST',
       body: body,
+      credentials: 'include',
     });
     return await response.json();
   } catch (error) {
@@ -75,6 +93,7 @@ export const updateTask = async (id, title, text, dueDate, postDate) => {
     const response = await fetch(apiEndpoint + `/task/${id}`, {
       method: 'POST',
       body: body,
+      credentials: 'include',
     });
     return await response.json();
   } catch (error) {
@@ -86,6 +105,7 @@ export const deleteTask = async (id) => {
   try {
     const response = await fetch(apiEndpoint + `/task/${id}`, {
       method: 'DELETE',
+      credentials: 'include',
     });
     return await response.json();
   } catch (error) {

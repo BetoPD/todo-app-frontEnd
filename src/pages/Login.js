@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
-import { loginUser, clearErrorMessage } from '../features/userSlice';
+import { loginUser, clearErrorMessage, vToken } from '../features/userSlice';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import Cookies from 'js-cookie';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -13,6 +15,14 @@ export default function Login() {
     dispatch(loginUser({ email, password }));
     setPassword('');
   };
+
+  useEffect(() => {
+    const cookies = Cookies.get();
+
+    if (cookies.token) {
+      dispatch(vToken);
+    }
+  }, []);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -48,6 +58,10 @@ export default function Login() {
             className="w-full bg-zinc-800 text-white px-4 py-2 rounded-md my-2"
           />
           <button type="submit">Login</button>
+          <div className="flex justify-between items-center mt-4">
+            <p>Do not have an account?</p>
+            <Link to="/register">Register</Link>
+          </div>
         </form>
       </div>
     </div>

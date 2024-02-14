@@ -7,6 +7,7 @@ import Navbar from './pages/Navbar';
 import Tasks from './pages/Tasks';
 
 export default function App() {
+
   return (
     <BrowserRouter>
       <Routes>

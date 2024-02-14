@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { clearErrorMessage, registerUser } from '../features/userSlice';
+import { Link } from 'react-router-dom';
 
 export default function Register() {
   const [username, setUsername] = useState('');
@@ -57,6 +58,10 @@ export default function Register() {
           />
           <button type="submit">Register</button>
         </form>
+        <div className="flex justify-between items-center mt-4">
+          <p>Already have an account?</p>
+          <Link to="/">Login</Link>
+        </div>
       </div>
     </div>
   );
