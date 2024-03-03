@@ -1,11 +1,20 @@
-import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { toggleAuthorized } from '../features/userSlice';
+import { useSelector } from 'react-redux';
 import { Navigate, Outlet } from 'react-router-dom';
-export default function ProtectedPages() {
-  const authorized = useSelector((state) => state.user.authorized);
 
-  if (!authorized) return <Navigate to="/" />;
+export default function ProtectedPages() {
+  const { authorized, isLoading } = useSelector((state) => state.user);
+
+  if (isLoading) {
+    return (
+      <div className="flex h-screen justify-center items-center">
+        <h1>Loading...</h1>
+      </div>
+    );
+  }
+
+  if (!authorized && !isLoading) {
+    return <Navigate to="/" />;
+  }
 
   return <Outlet />;
 }

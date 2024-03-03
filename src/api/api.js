@@ -40,9 +40,17 @@ export const login = async (email, password) => {
   }
 };
 
+export const logout = async () => {
+  const response = await fetch(apiEndpoint + '/logout', {
+    method: 'POST',
+    credentials: 'include',
+  });
+
+  return await response.json();
+};
+
 export const verifyToken = async () => {
   const response = await fetch(apiEndpoint + '/verify', {
-    method: 'GET',
     credentials: 'include',
   });
 
@@ -53,11 +61,13 @@ export const verifyToken = async () => {
     const errorMessage = error.message;
     throw new Error(errorMessage);
   }
-}
+};
 
 export const fetchTasks = async () => {
   try {
-    const response = await fetch(apiEndpoint + '/tasks');
+    const response = await fetch(apiEndpoint + '/tasks', {
+      credentials: 'include',
+    });
     return await response.json();
   } catch (error) {
     console.log(error);

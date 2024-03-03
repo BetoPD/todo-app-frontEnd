@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { login, register, verifyToken } from '../api/api';
+import { login, logout, register, verifyToken } from '../api/api';
 
 export const loginUser = createAsyncThunk(
   'user/loginUser',
@@ -22,22 +22,28 @@ export const vToken = createAsyncThunk('user/vToken', async () => {
   return response;
 });
 
+export const userLogout = createAsyncThunk('user/logout', async () => {
+  const response = await logout();
+  console.log(response);
+  return response;
+});
+
 const userSlice = createSlice({
   name: 'user',
   initialState: {
     username: '',
     email: '',
-    authorazied: false,
+    authorized: false,
     hasErrors: false,
     isLoading: false,
     errorMessage: '',
   },
   reducers: {
     setAuthorized: (state) => {
-      state.authorazied = true;
+      state.authorized = true;
     },
     setNotAuthorized: (state) => {
-      state.authorazied = false;
+      state.authorized = false;
     },
     clearErrorMessage: (state) => {
       state.errorMessage = '';
@@ -54,13 +60,13 @@ const userSlice = createSlice({
       state.username = action.payload.username;
       state.email = action.payload.email;
       state.errorMessage = '';
-      state.authorazied = true;
+      state.authorized = true;
     },
     [loginUser.rejected]: (state, action) => {
       state.isLoading = false;
       state.hasErrors = true;
       state.errorMessage = action.error.message;
-      state.authorazied = false;
+      state.authorized = false;
     },
     [registerUser.pending]: (state) => {
       state.isLoading = true;
@@ -81,20 +87,34 @@ const userSlice = createSlice({
     [vToken.pending]: (state) => {
       state.isLoading = true;
       state.hasErrors = false;
+      state.authorized = false;
     },
     [vToken.fulfilled]: (state, action) => {
+      state.authorized = true;
       state.isLoading = false;
       state.hasErrors = false;
       state.username = action.payload.username;
       state.email = action.payload.email;
-      state.errorMessage = '';
-      state.authorazied = true;
     },
-    [vToken.rejected]: (state, action) => {
+    [vToken.rejected]: (state) => {
       state.isLoading = false;
       state.hasErrors = true;
-      state.errorMessage = action.error.message;
-      state.authorazied = false;
+      state.authorized = false;
+    },
+    [userLogout.pending]: (state) => {
+      state.isLoading = true;
+      state.hasErrors = false;
+    },
+    [userLogout.fulfilled]: (state) => {
+      state.isLoading = false;
+      state.hasErrors = false;
+      state.authorized = false;
+      state.username = '';
+      state.email = '';
+    },
+    [userLogout.rejected]: (state) => {
+      state.isLoading = false;
+      state.hasErrors = true;
     },
   },
 });

@@ -1,13 +1,18 @@
 import { useState, useEffect } from 'react';
-import { loginUser, clearErrorMessage, vToken } from '../features/userSlice';
+import {
+  loginUser,
+  clearErrorMessage,
+  setNotAuthorized,
+  vToken,
+} from '../features/userSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
 
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const error = useSelector((state) => state.user.errorMessage);
+  const { errorMessage, authorized } = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
@@ -17,27 +22,34 @@ export default function Login() {
   };
 
   useEffect(() => {
-    const cookies = Cookies.get();
-
-    if (cookies.token) {
-      dispatch(vToken);
-    }
-  }, []);
-
-  useEffect(() => {
     const timer = setTimeout(() => {
       dispatch(clearErrorMessage());
     }, 5000);
 
     return () => clearTimeout(timer);
-  }, [error, dispatch]);
+  }, [errorMessage, dispatch]);
+
+  useEffect(() => {
+    const cookies = Cookies.get('token');
+
+    if (!cookies) {
+      dispatch(setNotAuthorized());
+      return;
+    }
+
+    dispatch(vToken());
+  }, [dispatch]);
+
+  if (authorized) {
+    return <Navigate to="/home" />;
+  }
 
   return (
     <div className="flex h-screen justify-center items-center">
       <div className="bg-zinc-800 max-w-md p-10 rounded-md">
-        {error && (
+        {errorMessage && (
           <div className="bg-red-500 p-2 text-white">
-            <p>{error}</p>
+            <p>{errorMessage}</p>
           </div>
         )}
         <form onSubmit={handleSubmit}>
