@@ -1,20 +1,17 @@
 import React from 'react';
-import { NavLink, Navigate, Outlet } from 'react-router-dom';
+import { NavLink, Outlet } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { userLogout } from '../features/userSlice';
+import { setNotAuthorized, userLogout } from '../features/userSlice';
 
 export default function Navbar() {
   const dispatch = useDispatch();
-  const { username, authorized } = useSelector((state) => state.user);
+  const { username } = useSelector((state) => state.user);
 
   const handleClick = (e) => {
     e.preventDefault();
     dispatch(userLogout());
+    dispatch(setNotAuthorized());
   };
-
-  if (!authorized) {
-    return <Navigate to="/" />;
-  }
 
   return (
     <>

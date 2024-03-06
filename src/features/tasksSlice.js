@@ -96,7 +96,9 @@ const tasksSlice = createSlice({
     [removeTask.fulfilled]: (state, action) => {
       state.isLoading = false;
       state.hasError = false;
-      state.tasks = state.tasks.filter((task) => task.id !== action.payload.id);
+      state.tasks = state.tasks.filter(
+        (task) => task.id !== parseInt(action.payload.id)
+      );
     },
     [removeTask.rejected]: (state) => {
       state.isLoading = false;

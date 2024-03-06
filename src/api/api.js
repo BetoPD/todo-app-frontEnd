@@ -84,17 +84,17 @@ export const fetchTask = async (id) => {
 };
 
 export const createTask = async (title, text, dueDate, postDate) => {
-  try {
-    const body = JSON.stringify({ title, text, dueDate, postDate });
-    const response = await fetch(apiEndpoint + '/task', {
-      method: 'POST',
-      body: body,
-      credentials: 'include',
-    });
-    return await response.json();
-  } catch (error) {
-    console.log(error);
-  }
+  const body = JSON.stringify({ title, text, dueDate, postDate });
+  const response = await fetch(apiEndpoint + '/task', {
+    method: 'POST',
+    body: body,
+    credentials: 'include',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+
+  return await response.json();
 };
 
 export const updateTask = async (id, title, text, dueDate, postDate) => {
@@ -112,13 +112,9 @@ export const updateTask = async (id, title, text, dueDate, postDate) => {
 };
 
 export const deleteTask = async (id) => {
-  try {
-    const response = await fetch(apiEndpoint + `/task/${id}`, {
-      method: 'DELETE',
-      credentials: 'include',
-    });
-    return await response.json();
-  } catch (error) {
-    console.log(error);
-  }
+  const response = await fetch(apiEndpoint + `/task/${id}`, {
+    method: 'DELETE',
+    credentials: 'include',
+  });
+  return await response.json();
 };
