@@ -7,7 +7,7 @@ export default function Register() {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const error = useSelector((state) => state.user.errorMessage);
+  const { errorMessage } = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -16,7 +16,7 @@ export default function Register() {
     }, 5000);
 
     return () => clearTimeout(timer);
-  }, [dispatch, error]);
+  }, [dispatch, errorMessage]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -26,9 +26,9 @@ export default function Register() {
   return (
     <div className="flex h-screen justify-center items-center">
       <div className="bg-zinc-800 max-w-md p-10 rounded-md">
-        {error && (
+        {errorMessage && (
           <div className="bg-red-500 p-2 text-white">
-            <p>{error}</p>
+            <p>{errorMessage}</p>
           </div>
         )}
         <form onSubmit={handleSubmit}>

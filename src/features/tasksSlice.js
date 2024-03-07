@@ -37,6 +37,7 @@ export const changeTask = createAsyncThunk(
   'tasks/changeTask',
   async ({ id, title, text, dueDate, postDate }) => {
     const response = await updateTask(id, title, text, dueDate, postDate);
+    console.log(response);
     return response;
   }
 );

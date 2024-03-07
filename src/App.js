@@ -4,6 +4,7 @@ import Login from './pages/Login';
 import ProtectedPages from './pages/ProtectedPages';
 import Navbar from './pages/Navbar';
 import Tasks from './pages/Tasks';
+import EditTask from './pages/EditTask';
 
 export default function App() {
   return (
@@ -15,6 +16,7 @@ export default function App() {
           <Route path="/home" element={<Navbar />}>
             <Route index element={<Tasks />} />
             <Route path="profile" element={<h1>Profile</h1>} />
+            <Route path="edit/:id" element={<EditTask />} />
           </Route>
         </Route>
       </Routes>

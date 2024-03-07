@@ -64,23 +64,17 @@ export const verifyToken = async () => {
 };
 
 export const fetchTasks = async () => {
-  try {
-    const response = await fetch(apiEndpoint + '/tasks', {
-      credentials: 'include',
-    });
-    return await response.json();
-  } catch (error) {
-    console.log(error);
-  }
+  const response = await fetch(apiEndpoint + '/tasks', {
+    credentials: 'include',
+  });
+  return await response.json();
 };
 
 export const fetchTask = async (id) => {
-  try {
-    const response = await fetch(apiEndpoint + `/task/${id}`);
-    return await response.json();
-  } catch (error) {
-    console.log(error);
-  }
+  const response = await fetch(apiEndpoint + `/task/${id}`, {
+    credentials: 'include',
+  });
+  return await response.json();
 };
 
 export const createTask = async (title, text, dueDate, postDate) => {
@@ -98,17 +92,13 @@ export const createTask = async (title, text, dueDate, postDate) => {
 };
 
 export const updateTask = async (id, title, text, dueDate, postDate) => {
-  try {
-    const body = JSON.stringify({ title, text, dueDate, postDate });
-    const response = await fetch(apiEndpoint + `/task/${id}`, {
-      method: 'POST',
-      body: body,
-      credentials: 'include',
-    });
-    return await response.json();
-  } catch (error) {
-    console.log(error);
-  }
+  const body = JSON.stringify({ title, text, dueDate, postDate });
+  const response = await fetch(apiEndpoint + `/task/${id}`, {
+    method: 'PUT',
+    body: body,
+    credentials: 'include',
+  });
+  return await response.json();
 };
 
 export const deleteTask = async (id) => {
