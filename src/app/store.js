@@ -7,4 +7,5 @@ export const store = configureStore({
     user: userReducer,
     task: taskReducer,
   },
+  devTools: false,
 });
