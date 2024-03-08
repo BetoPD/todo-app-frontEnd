@@ -45,6 +45,9 @@ export const logout = async () => {
   const response = await fetch(apiEndpoint + '/logout', {
     method: 'POST',
     credentials: 'include',
+    headers: {
+      'Content-Type': 'application/json',
+    },
   });
 
   return await response.json();
@@ -53,6 +56,9 @@ export const logout = async () => {
 export const verifyToken = async () => {
   const response = await fetch(apiEndpoint + '/api/verify', {
     credentials: 'include',
+    headers: {
+      'Content-Type': 'application/json',
+    },
   });
 
   if (response.ok) {
@@ -67,6 +73,9 @@ export const verifyToken = async () => {
 export const fetchTasks = async () => {
   const response = await fetch(apiEndpoint + '/api/tasks', {
     credentials: 'include',
+    headers: {
+      'Content-Type': 'application/json',
+    },
   });
   return await response.json();
 };
@@ -74,6 +83,9 @@ export const fetchTasks = async () => {
 export const fetchTask = async (id) => {
   const response = await fetch(apiEndpoint + `/api/task/${id}`, {
     credentials: 'include',
+    headers: {
+      'Content-Type': 'application/json',
+    },
   });
   return await response.json();
 };
@@ -109,6 +121,9 @@ export const deleteTask = async (id) => {
   const response = await fetch(apiEndpoint + `/api/task/${id}`, {
     method: 'DELETE',
     credentials: 'include',
+    headers: {
+      'Content-Type': 'application/json',
+    },
   });
   return await response.json();
 };

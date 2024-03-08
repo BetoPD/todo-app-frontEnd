@@ -29,7 +29,6 @@ export default function Tasks() {
       {isLoading ? (
         <h1>Loading Tasks</h1>
       ) : (
-        tasks &&
         tasks.map((tasks) => (
           <TaskCard
             key={tasks.id}
