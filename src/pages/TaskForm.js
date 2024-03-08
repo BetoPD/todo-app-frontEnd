@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { addTask } from '../features/tasksSlice';
+import { getDate } from '../utils/date';
 
 export default function TaskForm() {
   const dispatch = useDispatch();
@@ -11,7 +12,7 @@ export default function TaskForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const postDate = '2024-03-05';
+    const postDate = getDate();
     dispatch(addTask({ title, text, dueDate, postDate }));
     setTitle('');
     setText('');

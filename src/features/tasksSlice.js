@@ -37,7 +37,6 @@ export const changeTask = createAsyncThunk(
   'tasks/changeTask',
   async ({ id, title, text, dueDate, postDate }) => {
     const response = await updateTask(id, title, text, dueDate, postDate);
-    console.log(response);
     return response;
   }
 );
@@ -113,7 +112,7 @@ const tasksSlice = createSlice({
       state.isLoading = false;
       state.hasError = false;
       state.tasks = state.tasks.map((task) =>
-        task.id === action.payload.id ? action.payload : task
+        task.id === parseInt(action.payload.id) ? action.payload : task
       );
     },
     [changeTask.rejected]: (state) => {

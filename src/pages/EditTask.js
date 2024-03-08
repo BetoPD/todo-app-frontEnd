@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { changeTask, getTask } from '../features/tasksSlice';
+import { getDate } from '../utils/date';
+import { format } from 'date-fns';
 
 export default function EditTask() {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { id } = useParams();
-  console.log(id);
   const { individualTask, isLoading } = useSelector((state) => state.task);
   const [title, setTitle] = useState('');
   const [text, setText] = useState('');
@@ -17,16 +19,20 @@ export default function EditTask() {
   }, [dispatch, id]);
 
   useEffect(() => {
-    setTitle(individualTask.title);
-    setText(individualTask.text);
-    setDueDate(individualTask.dueDate);
+    setTitle(individualTask.title || '');
+    setText(individualTask.text || '');
+    setDueDate(
+      individualTask.dueDate
+        ? format(new Date(individualTask.dueDate), 'yyyy-MM-dd')
+        : ''
+    );
   }, [individualTask]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const postDate = '2024-03-05';
-    console.log({ id, title, text, dueDate, postDate });
+    const postDate = getDate();
     dispatch(changeTask({ id, title, text, dueDate, postDate }));
+    navigate('/home');
   };
 
   return (

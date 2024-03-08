@@ -27,7 +27,7 @@ export default function Register() {
     <div className="flex h-screen justify-center items-center">
       <div className="bg-zinc-800 max-w-md p-10 rounded-md">
         {errorMessage && (
-          <div className="bg-red-500 p-2 text-white">
+          <div className="bg-red-500 p-2 text-white rounded-md">
             <p>{errorMessage}</p>
           </div>
         )}

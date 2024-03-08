@@ -97,6 +97,9 @@ export const updateTask = async (id, title, text, dueDate, postDate) => {
     method: 'PUT',
     body: body,
     credentials: 'include',
+    headers: {
+      'Content-Type': 'application/json',
+    },
   });
   return await response.json();
 };

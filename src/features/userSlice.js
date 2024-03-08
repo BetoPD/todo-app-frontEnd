@@ -79,10 +79,10 @@ const userSlice = createSlice({
       state.email = action.payload.email;
       state.errorMessage = '';
     },
-    [registerUser.rejected]: (state, action) => {
+    [registerUser.rejected]: (state) => {
       state.isLoading = false;
       state.hasErrors = true;
-      state.errorMessage = action.error.message;
+      state.errorMessage = 'Something went wrong!';
     },
     [vToken.pending]: (state) => {
       state.isLoading = true;

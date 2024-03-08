@@ -1,4 +1,5 @@
 import React from 'react';
+import { format } from 'date-fns';
 
 export default function TaskCard({
   title,
@@ -24,8 +25,8 @@ export default function TaskCard({
         <p>{text}</p>
       </div>
       <div className="flex items-center justify-between">
-        <p>Posted on: {postDate}</p>
-        <p>Finishes on: {dueDate}</p>
+        <p>Posted on: {format(new Date(postDate), 'yyyy-MM-dd')}</p>
+        <p>Due to: {format(new Date(dueDate), 'yyyy-MM-dd')}</p>
         <button
           onClick={(e) => handleDelete(e, id)}
           className="bg-red-500 text-white px-2 py-1 rounded"
