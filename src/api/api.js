@@ -55,6 +55,7 @@ export const logout = async () => {
 
 export const verifyToken = async () => {
   const response = await fetch(apiEndpoint + '/api/verify', {
+    method: 'GET',
     credentials: 'include',
     headers: {
       'Content-Type': 'application/json',
@@ -72,6 +73,7 @@ export const verifyToken = async () => {
 
 export const fetchTasks = async () => {
   const response = await fetch(apiEndpoint + '/api/tasks', {
+    method: 'GET',
     credentials: 'include',
     headers: {
       'Content-Type': 'application/json',
@@ -82,6 +84,7 @@ export const fetchTasks = async () => {
 
 export const fetchTask = async (id) => {
   const response = await fetch(apiEndpoint + `/api/task/${id}`, {
+    method: 'GET',
     credentials: 'include',
     headers: {
       'Content-Type': 'application/json',
