@@ -1,8 +1,9 @@
-const apiEndpoint = 'http://localhost:8000/api';
+const apiEndpoint =
+  process.env.REACT_APP_BACKEND_URL || 'http://localhost:8000';
 
 export const register = async (email, username, password) => {
   const body = JSON.stringify({ email, username, password });
-  const response = await fetch(apiEndpoint + '/register', {
+  const response = await fetch(apiEndpoint + '/api/register', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -22,7 +23,7 @@ export const register = async (email, username, password) => {
 
 export const login = async (email, password) => {
   const body = JSON.stringify({ email, password });
-  const response = await fetch(apiEndpoint + '/login', {
+  const response = await fetch(apiEndpoint + '/api/login', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -50,7 +51,7 @@ export const logout = async () => {
 };
 
 export const verifyToken = async () => {
-  const response = await fetch(apiEndpoint + '/verify', {
+  const response = await fetch(apiEndpoint + '/api/verify', {
     credentials: 'include',
   });
 
@@ -64,14 +65,14 @@ export const verifyToken = async () => {
 };
 
 export const fetchTasks = async () => {
-  const response = await fetch(apiEndpoint + '/tasks', {
+  const response = await fetch(apiEndpoint + '/api/tasks', {
     credentials: 'include',
   });
   return await response.json();
 };
 
 export const fetchTask = async (id) => {
-  const response = await fetch(apiEndpoint + `/task/${id}`, {
+  const response = await fetch(apiEndpoint + `/api/task/${id}`, {
     credentials: 'include',
   });
   return await response.json();
@@ -79,7 +80,7 @@ export const fetchTask = async (id) => {
 
 export const createTask = async (title, text, dueDate, postDate) => {
   const body = JSON.stringify({ title, text, dueDate, postDate });
-  const response = await fetch(apiEndpoint + '/task', {
+  const response = await fetch(apiEndpoint + '/api/task', {
     method: 'POST',
     body: body,
     credentials: 'include',
@@ -93,7 +94,7 @@ export const createTask = async (title, text, dueDate, postDate) => {
 
 export const updateTask = async (id, title, text, dueDate, postDate) => {
   const body = JSON.stringify({ title, text, dueDate, postDate });
-  const response = await fetch(apiEndpoint + `/task/${id}`, {
+  const response = await fetch(apiEndpoint + `/api/task/${id}`, {
     method: 'PUT',
     body: body,
     credentials: 'include',
@@ -105,7 +106,7 @@ export const updateTask = async (id, title, text, dueDate, postDate) => {
 };
 
 export const deleteTask = async (id) => {
-  const response = await fetch(apiEndpoint + `/task/${id}`, {
+  const response = await fetch(apiEndpoint + `/api/task/${id}`, {
     method: 'DELETE',
     credentials: 'include',
   });
