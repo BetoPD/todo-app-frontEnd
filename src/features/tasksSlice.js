@@ -9,7 +9,6 @@ import {
 
 export const getTasks = createAsyncThunk('tasks/getTasks', async () => {
   const response = await fetchTasks();
-  console.log(response);
   return response;
 });
 
